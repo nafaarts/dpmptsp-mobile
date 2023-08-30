@@ -8,6 +8,10 @@
       "expo-router"
     ],
     "name": "mobile-dpmptsp",
-    "slug": "mobile-dpmptsp"
+    "slug": "mobile-dpmptsp",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": [
+      "assets/*"
+    ]
   }
 }
