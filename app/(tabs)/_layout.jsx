@@ -4,41 +4,46 @@ import { BlurView } from "expo-blur";
 import { Tabs } from "expo-router";
 import React from "react";
 import { Platform, View } from "react-native";
-import { useTheme } from "react-native-paper"
+import { useTheme } from "react-native-paper";
 
 export default function TabsLayout() {
-    const theme = useTheme()
+    const theme = useTheme();
     return (
         <Tabs
             initialRouteName="home"
             screenOptions={{
                 tabBarStyle: {
                     backgroundColor: theme.colors.tabBar,
-                    borderTopWidth: 0
+                    borderTopWidth: 0,
                 },
                 tabBarActiveTintColor: theme.colors.secondary,
                 headerShown: false,
                 headerStyle: {
                     backgroundColor: theme.colors.tabBar,
-                    shadowColor: 'transparent', // this covers iOS
+                    shadowColor: "transparent", // this covers iOS
                     elevation: 0, // this covers Android
                 },
                 headerTitleStyle: {
-                    color: '#fff'
+                    color: "#fff",
                 },
             }}
             tabBar={(props) => {
                 if (Platform.OS === "ios") {
                     return (
                         <BlurView
-                            style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}
+                            style={{
+                                position: "absolute",
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                            }}
                             intensity={95}
                         >
                             <BottomTabBar {...props} />
                         </BlurView>
-                    )
+                    );
                 } else {
-                    return <BottomTabBar {...props} />
+                    return <BottomTabBar {...props} />;
                 }
             }}
         >
@@ -56,7 +61,11 @@ export default function TabsLayout() {
                                 backgroundColor: "transparent",
                             }}
                         >
-                            <TabBarIcon name="history" color={color} size={24} />
+                            <TabBarIcon
+                                name="history"
+                                color={color}
+                                size={24}
+                            />
                         </View>
                     ),
                 }}

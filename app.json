@@ -5,13 +5,54 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
     ],
-    "name": "mobile-dpmptsp",
+    "name": "DPMPTSP Mobile",
     "slug": "mobile-dpmptsp",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover"
+    },
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
       "assets/*"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "37c6204a-3ffe-4c5c-a1e9-b0bfc6c1f19b"
+      }
+    },
+    "android": {
+      "package": "com.nafaarts.mobiledpmptsp",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBKJfIHOQhD8Jy4L4woCv40SyaSrPL-zuw"
+        }
+      }
+    },
+    "build": {
+      "preview": {
+        "distribution": "internal"
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
-import { Redirect, useRootNavigationState } from 'expo-router';
-import Background from '../components/Background';
+import { Redirect, useRootNavigationState } from "expo-router";
+import Background from "../components/Background";
 
 const Index = () => {
     const rootNavigationState = useRootNavigationState();

@@ -7,7 +7,7 @@ const useAuth = create(
         persist(
             (set) => ({
                 token: null,
-
+                loading: false,
                 login: ({ token }) => set(() => ({ token })),
                 register: ({ token }) => set(() => ({ token })),
                 logout: () => set(() => ({ token: null })),

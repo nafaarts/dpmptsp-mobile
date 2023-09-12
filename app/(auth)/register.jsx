@@ -1,57 +1,71 @@
 import Background from "../../components/Background";
 import TextInput from "../../components/formiz/TextInput";
-import { Formiz, useForm, FormizStep } from '@formiz/core'
-import { isEmail, isNumber, isPattern } from '@formiz/validations'
-import { Image, Text, View } from "react-native";
+import { Formiz, useForm, FormizStep } from "@formiz/core";
+import { isEmail, isNumber, isPattern } from "@formiz/validations";
+import { Alert, Image, Text, View } from "react-native";
 import Button from "../../components/Button";
-import { useTheme, Divider } from 'react-native-paper';
+import { useTheme, Divider } from "react-native-paper";
 import { Link } from "expo-router";
 import Select from "../../components/formiz/Select";
 import DateInput from "../../components/formiz/DateInput";
-import { signUp } from "../../services/auth.service"
-import * as Device from 'expo-device';
+import { signUp } from "../../services/auth.service";
+import * as Device from "expo-device";
+import useAuth from "../../stores/useAuth";
 
 const register = () => {
-    const theme = useTheme()
-    const registerForm = useForm()
+    const theme = useTheme();
+    const { login } = useAuth();
+    const registerForm = useForm();
 
     const handleSubmit = (values) => {
-        console.log(values)
-        signUp({ ...values, device_name: Device.deviceName || 'Laptop' })
-            .then(response => {
-                // login({
-                //     token: response.data.access_token
-                // })
-                console.log('logged in, token: ', response.data.access_token)
+        signUp({ ...values, device_name: Device.deviceName || "Laptop" })
+            .then((response) => {
+                login({
+                    token: response.data.access_token,
+                });
             })
-            .catch(error => {
-                console.error(error)
-                alert('Terjadi kesalahan!')
-            })
-    }
+            .catch((error) => {
+                Alert.alert("Terjadi kesalahan", error.response.data.message);
+            });
+    };
     return (
-        <Background>
-            <View style={{ alignItems: 'center', gap: 25 }}>
-                <Image source={require('../../assets/logo.png')} style={{
-                    height: 100,
-                    width: 100
-                }} />
-                <Text style={{
-                    fontSize: 20,
-                    color: '#fff',
-                    textAlign: 'center',
-                    fontWeight: 'bold'
-                }}>
+        <Background
+            style={{
+                justifyContent: "center",
+            }}
+        >
+            <View style={{ alignItems: "center", gap: 25 }}>
+                <Image
+                    source={require("../../assets/logo.png")}
+                    style={{
+                        height: 100,
+                        width: 100,
+                    }}
+                />
+                <Text
+                    style={{
+                        fontSize: 20,
+                        color: "#fff",
+                        textAlign: "center",
+                        fontWeight: "bold",
+                    }}
+                >
                     BUAT AKUN ANDA
                 </Text>
             </View>
             <Divider style={{ marginVertical: 20 }} />
-            <Formiz
-                connect={registerForm}
-                onValidSubmit={handleSubmit}
-            >
+            <Formiz connect={registerForm} onValidSubmit={handleSubmit}>
                 {/* // form */}
-                <FormizStep name="step1" as={View} style={{ width: '100%', gap: 20, marginBottom: 40, paddingHorizontal: 20 }}>
+                <FormizStep
+                    name="step1"
+                    as={View}
+                    style={{
+                        width: "100%",
+                        gap: 20,
+                        marginBottom: 40,
+                        paddingHorizontal: 20,
+                    }}
+                >
                     <TextInput
                         name="nama"
                         label="Nama Lengkap"
@@ -64,13 +78,22 @@ const register = () => {
                         validations={[
                             {
                                 rule: isNumber(),
-                                message: 'Masukan angka',
+                                message: "Masukan angka",
                             },
                         ]}
                     />
                 </FormizStep>
 
-                <FormizStep name="step2" as={View} style={{ width: '100%', gap: 20, marginBottom: 40, paddingHorizontal: 20 }}>
+                <FormizStep
+                    name="step2"
+                    as={View}
+                    style={{
+                        width: "100%",
+                        gap: 20,
+                        marginBottom: 40,
+                        paddingHorizontal: 20,
+                    }}
+                >
                     <TextInput
                         name="tempat_lahir"
                         label="Tempat Lahir"
@@ -82,14 +105,23 @@ const register = () => {
                         required="Tanggal Lahir wajib di isi"
                     />
                     <Select
-                        data={["Laki-laki", 'Perempuan']}
+                        data={["Laki-laki", "Perempuan"]}
                         defaultValue="Laki-laki"
                         name="jenis_kelamin"
                         label="Jenis Kelamin"
                     />
                 </FormizStep>
 
-                <FormizStep name="step3" as={View} style={{ width: '100%', gap: 20, marginBottom: 40, paddingHorizontal: 20 }}>
+                <FormizStep
+                    name="step3"
+                    as={View}
+                    style={{
+                        width: "100%",
+                        gap: 20,
+                        marginBottom: 40,
+                        paddingHorizontal: 20,
+                    }}
+                >
                     <TextInput
                         name="no_telpon"
                         label="Nomor Handphone"
@@ -97,14 +129,11 @@ const register = () => {
                         validations={[
                             {
                                 rule: isNumber(),
-                                message: 'Masukan angka',
+                                message: "Masukan angka",
                             },
                         ]}
                     />
-                    <TextInput
-                        name="pekerjaan"
-                        label="Pekerjaan"
-                    />
+                    <TextInput name="pekerjaan" label="Pekerjaan" />
                     <TextInput
                         name="alamat"
                         label="Alamat"
@@ -112,7 +141,16 @@ const register = () => {
                     />
                 </FormizStep>
 
-                <FormizStep name="step4" as={View} style={{ width: '100%', gap: 20, marginBottom: 40, paddingHorizontal: 20 }}>
+                <FormizStep
+                    name="step4"
+                    as={View}
+                    style={{
+                        width: "100%",
+                        gap: 20,
+                        marginBottom: 40,
+                        paddingHorizontal: 20,
+                    }}
+                >
                     <TextInput
                         name="email"
                         label="Email"
@@ -120,7 +158,7 @@ const register = () => {
                         validations={[
                             {
                                 rule: isEmail(),
-                                message: 'Masukan email yang valid',
+                                message: "Masukan email yang valid",
                             },
                         ]}
                     />
@@ -138,13 +176,20 @@ const register = () => {
                         validations={[
                             {
                                 rule: isPattern(registerForm.values.password),
-                                message: 'Password tidak sama',
+                                message: "Password tidak sama",
                             },
                         ]}
                     />
                 </FormizStep>
 
-                <View style={{ alignItems: 'center', width: '100%', gap: 20, paddingHorizontal: 20 }}>
+                <View
+                    style={{
+                        alignItems: "center",
+                        width: "100%",
+                        gap: 20,
+                        paddingHorizontal: 20,
+                    }}
+                >
                     {registerForm.isLastStep ? (
                         <Button
                             icon="login"
@@ -168,25 +213,25 @@ const register = () => {
                     )}
 
                     {!registerForm.isFirstStep ? (
-                        <Button
-                            onPress={registerForm.prevStep}>
+                        <Button onPress={registerForm.prevStep}>
                             <Text>Kembali</Text>
                         </Button>
                     ) : (
-                        <View
-                            style={{ flexDirection: 'row', gap: 5 }}>
+                        <View style={{ flexDirection: "row", gap: 5 }}>
                             <Text
                                 style={{
-                                    color: '#fff'
-                                }}>
+                                    color: "#fff",
+                                }}
+                            >
                                 Sudah Punya Akun!
                             </Text>
                             <Link
                                 replace
                                 href="/login"
                                 style={{
-                                    color: '#fff'
-                                }}>
+                                    color: "#fff",
+                                }}
+                            >
                                 Login Saja
                             </Link>
                         </View>
@@ -194,7 +239,7 @@ const register = () => {
                 </View>
             </Formiz>
         </Background>
-    )
-}
+    );
+};
 
-export default register
+export default register;

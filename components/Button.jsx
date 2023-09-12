@@ -1,4 +1,4 @@
-import { Button as Btn } from 'react-native-paper';
+import { Button as Btn } from "react-native-paper";
 
 const Button = (props) => {
     return (
@@ -6,13 +6,13 @@ const Button = (props) => {
             style={{
                 borderRadius: 0,
                 paddingVertical: 5,
-                width: '100%'
+                width: "100%",
             }}
             {...props}
         >
             {props.children}
         </Btn>
-    )
-}
+    );
+};
 
-export default Button
+export default Button;
