@@ -73,7 +73,6 @@ const BuatPengaduan = () => {
                             <TextInput
                                 name="nomor_referensi"
                                 label="Nomor Referensi"
-                                required="Nomor referensi wajib di isi"
                             />
                         )}
 
